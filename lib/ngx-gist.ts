@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, ViewEncapsulation, OnChanges} from '@angular/core';
 
 @Component({
   selector: 'ngx-gist',
@@ -9,12 +9,12 @@ import { Component, Input, ViewChild, ElementRef, AfterViewInit, ViewEncapsulati
   encapsulation: ViewEncapsulation.None
 })
 
-export class NgxGist implements AfterViewInit {
+export class NgxGist implements OnChanges {
   @ViewChild('iframe') iframe:ElementRef;
   @Input() gistId;
   @Input() file:string;
 
-  ngAfterViewInit() {
+  ngOnChanges() {
     let fileName = (this.file) ? this.file : ''; 
     this.iframe.nativeElement.id = 'gist-' + this.gistId;
     let doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentElement.contentWindow;
